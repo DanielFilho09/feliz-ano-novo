@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feliz Ano Novo!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: black;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: gold;
+      font-size: 3em;
+      text-shadow: 0 0 10px gold, 0 0 20px yellow, 0 0 30px orange;
+      margin: 20px 0;
+    }
+
+    p {
+      color: white;
+      font-size: 1.5em;
+      text-shadow: 0 0 10px white;
+    }
+
+    .fireworks {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://media.giphy.com/media/3o7TKPdUkkbwwPSJhG/giphy.gif') no-repeat center center;
+      background-size: cover;
+      z-index: -1;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      color: white;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="fireworks"></div>
+  <h1>Feliz Ano Novo!</h1>
+  <p>Que 2024 seja repleto de conquistas e felicidades!</p>
+  <footer>Desenvolvido por Daniel de Abreu</footer>
+</body>
+</html>
