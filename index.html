@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Feliz Ano Novo!</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3600/3600917.png" type="image/png" />
+
   <style>
     body {
       margin: 0;
@@ -34,6 +38,15 @@
       text-align: center;
     }
 
+    #countdown {
+      color: rgb(229, 245, 7);
+      font-size: 2em;
+      position: absolute;
+      top: 50%;
+      text-align: center;
+      text-shadow: 0 0 10px rgb(218, 255, 8), 0 0 20px rgb(255, 251, 34);
+    }
+
     canvas {
       position: absolute;
       top: 0;
@@ -51,11 +64,36 @@
 <body>
   <canvas id="fireworks"></canvas>
   <h1>Feliz Ano Novo!</h1>
-  <p>Que 2025 seja repleto de conquistas e felicidades!</p>
-  <p2>Estou torcendo por você, que nesse ano você conquiste sonhos, Deus abençõe seus projetos</p2>
-  <footer>Desenvolvido por Daniel Filho! </footer>
+  <p>Que 2025 seja repleto de conquistas e felicidades! <br>
+    Estou torcendo por você, que nesse ano você conquiste sonhos, Deus abençoe seus projetos.
+  </p>
+  <div id="countdown"></div>
+  <footer>Desenvolvido por Daniel de Abreu</footer>
 
   <script>
+    // Relógio de Contagem Regressiva
+    const countdownElement = document.getElementById('countdown');
+    const targetDate = new Date('Jan 1, 2025 00:00:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownElement.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+
+      if (distance < 0) {
+        countdownElement.innerHTML = 'Feliz Ano Novo!';
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+
+    // Animação de Fogos de Artifício
     const canvas = document.getElementById('fireworks');
     const ctx = canvas.getContext('2d');
 
