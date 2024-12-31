@@ -9,36 +9,35 @@
       margin: 0;
       padding: 0;
       height: 100vh;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
-      background-color: black;
-      overflow: hidden;
+      background: black;
+      font-family: Arial, sans-serif;
     }
 
     h1 {
       color: gold;
       font-size: 3em;
       text-shadow: 0 0 10px gold, 0 0 20px yellow, 0 0 30px orange;
-      margin: 20px 0;
+      position: absolute;
+      top: 20%;
+      text-align: center;
     }
 
     p {
       color: white;
       font-size: 1.5em;
-      text-shadow: 0 0 10px white;
+      position: absolute;
+      top: 35%;
+      text-align: center;
     }
 
-    .fireworks {
+    canvas {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('https://media.giphy.com/media/3o7TKPdUkkbwwPSJhG/giphy.gif') no-repeat center center;
-      background-size: cover;
-      z-index: -1;
     }
 
     footer {
@@ -50,9 +49,78 @@
   </style>
 </head>
 <body>
-  <div class="fireworks"></div>
+  <canvas id="fireworks"></canvas>
   <h1>Feliz Ano Novo!</h1>
   <p>Que 2024 seja repleto de conquistas e felicidades!</p>
   <footer>Desenvolvido por Daniel de Abreu</footer>
+
+  <script>
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    class Particle {
+      constructor(x, y, size, color, speedX, speedY) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.color = color;
+        this.speedX = speedX;
+        this.speedY = speedY;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.size *= 0.95;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+
+    function createFirework() {
+      const colors = ['#ff6f61', '#ffcc29', '#00d084', '#0096ff', '#e91e63'];
+      const particlesCount = 50;
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height * 0.5;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      for (let i = 0; i < particlesCount; i++) {
+        const size = Math.random() * 5 + 2;
+        const speedX = (Math.random() - 0.5) * 5;
+        const speedY = (Math.random() - 0.5) * 5;
+        particles.push(new Particle(x, y, size, color, speedX, speedY));
+      }
+    }
+
+    function animateFireworks() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((particle, index) => {
+        particle.update();
+        particle.draw();
+
+        if (particle.size < 0.5) {
+          particles.splice(index, 1);
+        }
+      });
+
+      if (Math.random() < 0.05) createFirework();
+
+      requestAnimationFrame(animateFireworks);
+    }
+
+    animateFireworks();
+  </script>
 </body>
 </html>
